@@ -15,6 +15,7 @@ namespace Course_Exception
 
             Console.Write("Check-out date (dd/MM/yyyy): ");
             DateTime checkout = DateTime.Parse(Console.ReadLine());
+            
 
             if (checkin >= checkout)
             {
@@ -33,19 +34,14 @@ namespace Course_Exception
                 Console.Write("Check-out date (dd/MM/yyyy): ");
                 checkout = DateTime.Parse(Console.ReadLine());
 
-                DateTime now = DateTime.Now;
+                string error = res.UpdateDates(checkin, checkout);
 
-                if (checkin < now || checkout < now)
+                if (error != null)
                 {
-                    Console.WriteLine("Error in reservation! Reservation dates must be future date. ");
-                }
-                else if (checkout <= checkin)
-                {
-                    Console.WriteLine("Error! Check-out must be after check-in. ");
+                    Console.WriteLine("Erro in reservation. " + error);
                 }
                 else
-                {
-                    res.UpdateDates(checkin, checkout);
+                {                    
                     Console.WriteLine("\r\nReservation: " + res.ToString());
                 }                
             }

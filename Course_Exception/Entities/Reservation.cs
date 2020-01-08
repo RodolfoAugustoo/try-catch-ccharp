@@ -25,10 +25,24 @@ namespace Course_Exception.Entities
             return (int)duration.TotalDays;
         }
 
-        public void UpdateDates(DateTime checkin, DateTime checkout)
+        public string UpdateDates(DateTime checkin, DateTime checkout)
         {
             CheckIn = checkin;
             CheckOut = checkout;
+
+
+            DateTime now = DateTime.Now;
+
+            if (checkin < now || checkout < now)
+            {
+                return "Error in reservation! Reservation dates must be future date. ";
+            }
+            if (checkout <= checkin)
+            {
+                return "Error! Check-out must be after check-in. ";
+            }
+
+            return null;
         }
 
         public override string ToString()
